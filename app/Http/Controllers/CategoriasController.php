@@ -33,12 +33,15 @@ class CategoriasController extends Controller
         return response()->json($categoria);
     }
 
-    public function salvarCategoria(Request $request)
+    public function salvarCategoria()
     {
         $categoria = new Categoria;
-        $categoria = json_decode($request->data);
+        $categoria->nome = request()->nome;
 
-        return response()->json($categoria);
+
+            return response()->json($categoria->save());
+
+
     }
 
     public function editarCategoria(Request $request, $id)

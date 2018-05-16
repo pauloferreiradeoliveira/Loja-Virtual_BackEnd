@@ -18,6 +18,18 @@ Route::group(['prefix' =>  'categoria'], function (){
         Route::get('{id}','CategoriasController@pegarCategoria');
         Route::post('','CategoriasController@salvarCategoria');
         Route::put('{id}','CategoriasController@editarCategoria');
-        Route::delete('','CategoriasController@deletarCategoria');
+        Route::delete('{id}','CategoriasController@deletarCategoria');
     }
+);
+
+
+
+Route::group(['prefix' =>  'permissao'], function (){
+    Route::get('', 'PermissaoController@index');
+    Route::get('tipos/{id}', 'PermissaoController@tipoPermisao');
+    Route::get('{id}','PermissaoController@show');
+    Route::post('','PermissaoController@store');
+    Route::put('{id}','PermissaoController@update');
+    Route::delete('{id}','PermissaoController@destroy');
+}
 );

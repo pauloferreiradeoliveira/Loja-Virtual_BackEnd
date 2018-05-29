@@ -24,7 +24,7 @@ Route::group(['prefix' =>  'categoria'], function (){
 
 
 
-Route::group(['prefix' =>  'permissao'], function (){
+Route::group(['middleware' => 'auth:admin','prefix' =>  'permissao'], function (){
     Route::get('', 'PermissaoController@index');
     Route::get('tipos/{id}', 'PermissaoController@tipoPermisao');
     Route::get('{id}','PermissaoController@show');
@@ -33,3 +33,29 @@ Route::group(['prefix' =>  'permissao'], function (){
     Route::delete('{id}','PermissaoController@destroy');
 }
 );
+
+Route::group(['prefix' =>  'funcionario'], function (){
+    Route::get('', 'FuncionarioController@index');
+    Route::get('{id}','FuncionarioController@show');
+    Route::post('','FuncionarioController@store');
+    Route::put('{id}','FuncionarioController@update');
+    Route::delete('{id}','FuncionarioController@destroy');
+}
+);
+
+
+Route::group([
+    'prefix' =>  'auth'
+], function (){
+        Route::post('login', 'AuthAdminController@login');
+        Route::post('refresh', 'AuthAdminController@refresh');
+        Route::get('logout', 'AuthAdminController@logout');
+    }
+);
+
+Route::group([
+    'middleware' => 'auth:admin',
+    'prefix' => 'auth',
+], function () {
+    Route::get('me', 'AuthAdminController@me');
+});

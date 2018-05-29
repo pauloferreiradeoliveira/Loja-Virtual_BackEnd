@@ -80,17 +80,6 @@ class PermissaoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -103,7 +92,7 @@ class PermissaoController extends Controller
             $novoDados = $this->tipoUser->find($id);
             $novoDados->nome = $request->nome;
             if($novoDados->save()){
-                App\Model\Permissao::where('user_id',$id)->delete();
+                $this->tipoPermissao->where('user_id',$id)->delete();
                 foreach ($request->permissao as $permissao) {
                     $tipoPermissao = new Permissao;
                     $tipoPermissao->permissao = $permissao['permissao'];
